@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy - STEM Assessment Platform</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="theme.js"></script>
+</head>
+<body class="legal-page">
+  <header class="top-nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-brand">
+        <svg class="brand-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/>
+          <path d="M6 6h10"/>
+          <path d="M6 10h10"/>
+        </svg>
+        <span>Assessment Platform</span>
+      </a>
+      <div class="nav-actions">
+        <nav class="nav-links">
+          <a href="index.html" class="nav-link">Home</a>
+          <a href="privacy.html" class="nav-link active">Privacy</a>
+          <a href="terms.html" class="nav-link">Terms</a>
+        </nav>
+        <button type="button" id="themeToggleBtn" class="theme-toggle-btn" aria-label="Toggle dark and light theme" title="Toggle theme">
+          <span class="theme-toggle-track">
+            <span class="theme-toggle-thumb">
+              <svg class="theme-icon-moon" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>
+              </svg>
+              <svg class="theme-icon-sun hidden" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="4"/>
+                <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
+              </svg>
+            </span>
+          </span>
+          <span class="theme-mode-label" id="themeModeLabel">Dark</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container legal-container">
+    <article class="card legal-card">
+      <header class="legal-header">
+        <p class="legal-meta">Effective Date: October 10, 2026</p>
+        <h1 class="legal-title">Privacy Policy</h1>
+        <p class="legal-subtitle">This policy details how user data, API credentials, and assessment records are handled.</p>
+      </header>
+
+      <section class="legal-section">
+        <h2>1. Architecture and Data Handling</h2>
+        <p>This application operates as a client-side web application. All quiz generation configurations, user interactions, and grading computations are processed within your local web browser session.</p>
+      </section>
+
+      <section class="legal-section">
+        <h2>2. Gemini API Credentials</h2>
+        <p>This platform follows a strict Bring Your Own Key (BYOK) architecture:</p>
+        <ul>
+          <li><strong>Local Storage Only:</strong> If you choose to input a Google Gemini API key, it is stored solely within your web browser's local storage (window.localStorage).</li>
+          <li><strong>No Intermediate Server Storage:</strong> Your API key is never transmitted to, logged on, or stored on any intermediary server operated by this application.</li>
+          <li><strong>Direct Transmission:</strong> When you generate a quiz using AI, network requests are transmitted directly from your client browser to Google's official Generative Language API endpoint (generativelanguage.googleapis.com).</li>
+          <li><strong>Revocation and Deletion:</strong> You can permanently remove your saved API key from local storage at any time by clicking the "Clear" button in the API settings module.</li>
+        </ul>
+      </section>
+
+      <section class="legal-section">
+        <h2>3. Third-Party Services</h2>
+        <p>When using AI quiz generation, your requests are processed by Google in accordance with Google's API Terms of Service and Privacy Policy. We do not control Google's processing of data sent to their endpoints.</p>
+      </section>
+
+      <section class="legal-section">
+        <h2>4. Cookies and Tracking</h2>
+        <p>This application does not use tracking cookies, analytics trackers, or third-party marketing scripts. The only stored items in your browser are your voluntarily provided API key and current test state.</p>
+      </section>
+
+      <section class="legal-section">
+        <h2>5. Changes to This Policy</h2>
+        <p>Any updates to this policy will be posted on this page with an updated effective date.</p>
+      </section>
+
+      <section class="legal-section">
+        <h2>6. Contact</h2>
+        <p>For questions regarding this privacy policy, open an issue in the project source repository.</p>
+      </section>
+    </article>
+  </main>
+
+  <footer class="app-footer">
+    <div class="footer-inner">
+      <p class="footer-copy">&copy; 2026 STEM Assessment Platform. All rights reserved.</p>
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms and Conditions</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

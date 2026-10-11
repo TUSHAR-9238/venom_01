@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>STEM Assessment Platform</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+  <!-- Theme Manager (Runs immediately to prevent flicker) -->
+  <script src="theme.js"></script>
+</head>
+<body>
+  <!-- Top Navigation -->
+  <header class="top-nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-brand">
+        <svg class="brand-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/>
+          <path d="M6 6h10"/>
+          <path d="M6 10h10"/>
+        </svg>
+        <span>Assessment Platform</span>
+      </a>
+      <div class="nav-actions">
+        <nav class="nav-links">
+          <a href="index.html" class="nav-link active">Home</a>
+          <a href="privacy.html" class="nav-link">Privacy</a>
+          <a href="terms.html" class="nav-link">Terms</a>
+        </nav>
+        <button type="button" id="themeToggleBtn" class="theme-toggle-btn" aria-label="Toggle dark and light theme" title="Toggle theme">
+          <span class="theme-toggle-track">
+            <span class="theme-toggle-thumb">
+              <svg class="theme-icon-moon" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>
+              </svg>
+              <svg class="theme-icon-sun hidden" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="4"/>
+                <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
+              </svg>
+            </span>
+          </span>
+          <span class="theme-mode-label" id="themeModeLabel">Dark</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Header -->
+    <header class="app-header">
+      <h1 class="title">STEM Assessment Platform</h1>
+      <p class="subtitle">Configure curriculum-aligned evaluations in Physics, Chemistry, and Mathematics. Generate targeted assessments via client-side Gemini API or practice offline using curated question banks.</p>
+    </header>
+
+    <!-- API Key Settings Banner -->
+    <section class="card api-key-card" id="apiKeyCard">
+      <div class="api-key-header">
+        <div class="api-key-title">
+          <span>Personal Gemini API Key</span>
+        </div>
+        <div class="api-key-header-right">
+          <button type="button" id="toggleGuideBtn" class="guide-toggle-btn">
+            Setup Guide
+          </button>
+          <span id="apiKeyStatusBadge" class="status-badge status-missing">No Key Entered</span>
+        </div>
+      </div>
+
+      <p class="api-key-privacy-notice">
+        <strong>Privacy Assurance:</strong> Your API key is stored locally in your browser session and is never sent to any intermediary server.
+      </p>
+
+      <!-- Student Setup Guide -->
+      <div id="studentGuideBox" class="student-guide-box">
+        <div class="guide-header">
+          <span class="guide-badge">Three-Step Setup Guide</span>
+          <span class="guide-cost-badge">Free Tier Available</span>
+        </div>
+        <div class="guide-steps">
+          <div class="guide-step">
+            <span class="guide-step-num">1</span>
+            <div class="guide-step-body">
+              <strong>Open Google AI Studio</strong>
+              <p>Navigate to <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener noreferrer" class="guide-link">aistudio.google.com/app/apikey</a> and sign in with your Google account.</p>
+            </div>
+          </div>
+          <div class="guide-step">
+            <span class="guide-step-num">2</span>
+            <div class="guide-step-body">
+              <strong>Generate API Key</strong>
+              <p>Select "Create API Key" and copy the key string.</p>
+            </div>
+          </div>
+          <div class="guide-step">
+            <span class="guide-step-num">3</span>
+            <div class="guide-step-body">
+              <strong>Save Key Locally</strong>
+              <p>Paste the key into the input field below and select "Save Key".</p>
+            </div>
+          </div>
+        </div>
+        <div class="guide-footer">
+          <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener noreferrer" class="btn-external-link">
+            Open Google AI Studio
+          </a>
+          <span class="guide-tip">No key required: select <em>"Load Offline Question Bank"</em> below to practice without credentials.</span>
+        </div>
+      </div>
+
+      <div class="api-key-controls">
+        <div class="input-password-wrapper">
+          <input 
+            type="password" 
+            id="apiKeyInput" 
+            placeholder="Paste your personal Gemini API key here" 
+            autocomplete="off"
+          >
+          <button type="button" id="toggleKeyVisibilityBtn" class="visibility-btn" title="Toggle visibility">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/>
+              <circle cx="12" cy="12" r="3"/>
+            </svg>
+          </button>
+        </div>
+        <button type="button" id="saveKeyBtn" class="save-key-btn">Save Key</button>
+        <button type="button" id="clearKeyBtn" class="clear-key-btn" title="Remove stored key">Clear</button>
+      </div>
+      <div id="apiKeyNotice" class="api-key-notice hidden"></div>
+    </section>
+
+    <!-- Error Alert Bar -->
+    <div id="errorAlert" class="error-alert hidden">
+      <div class="error-content">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="12" y1="8" x2="12" y2="12"/>
+          <line x1="12" y1="16" x2="12.01" y2="16"/>
+        </svg>
+        <span id="errorMessageText">An error occurred</span>
+      </div>
+      <button type="button" id="closeErrorBtn" class="close-error-btn">&times;</button>
+    </div>
+
+    <!-- SECTION A: QUIZ CONFIGURATION FORM -->
+    <div class="card quiz-card" id="formCard">
+      <form id="quizForm" class="quiz-form" novalidate>
+        
+        <!-- SECTION 1: Subject -->
+        <div class="form-group">
+          <label class="group-label">
+            <span class="step-num">1</span>
+            <span>Select Subject</span>
+          </label>
+          <div class="subject-grid">
+            <label class="selection-card">
+              <input type="radio" name="subject" value="Physics" checked>
+              <div class="card-content">
+                <span class="card-title">Physics</span>
+                <span class="card-desc">Mechanics, Thermodynamics, Optics, and Electromagnetism</span>
+              </div>
+            </label>
+
+            <label class="selection-card">
+              <input type="radio" name="subject" value="Chemistry">
+              <div class="card-content">
+                <span class="card-title">Chemistry</span>
+                <span class="card-desc">Bonding, Organic Mechanisms, Atomic Structure, and Kinetics</span>
+              </div>
+            </label>
+
+            <label class="selection-card">
+              <input type="radio" name="subject" value="Mathematics">
+              <div class="card-content">
+                <span class="card-title">Mathematics</span>
+                <span class="card-desc">Calculus, Matrices, Probability, and Coordinate Geometry</span>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <!-- SECTION 2: Topic Boxes of Chapters -->
+        <div class="form-group">
+          <div class="group-label-row">
+            <label class="group-label">
+              <span class="step-num">2</span>
+              <span>Choose Chapter Topic</span>
+            </label>
+            <button type="button" id="toggleCustomTopicBtn" class="text-link-btn">+ Custom Chapter</button>
+          </div>
+          
+          <!-- Interactive Topic Boxes -->
+          <div id="topicBoxesGrid" class="topic-boxes-grid">
+            <!-- Injected dynamically by script.js -->
+          </div>
+
+          <!-- Custom Chapter Input -->
+          <div id="customTopicWrapper" class="custom-topic-wrapper hidden">
+            <input 
+              type="text" 
+              id="chapterInput" 
+              name="chapter" 
+              placeholder="Enter custom topic or chapter name" 
+              autocomplete="off"
+            >
+            <datalist id="chapterSuggestions"></datalist>
+          </div>
+
+          <span class="error-message" id="chapterError">Please select a topic box or specify a chapter name.</span>
+        </div>
+
+        <!-- SECTION 3: Difficulty -->
+        <div class="form-group">
+          <label class="group-label">
+            <span class="step-num">3</span>
+            <span>Difficulty Level</span>
+          </label>
+          <div class="segmented-group difficulty-group">
+            <label class="segmented-option">
+              <input type="radio" name="difficulty" value="Easy">
+              <div class="segmented-content">
+                <span>Easy</span>
+              </div>
+            </label>
+
+            <label class="segmented-option">
+              <input type="radio" name="difficulty" value="Medium" checked>
+              <div class="segmented-content">
+                <span>Medium</span>
+              </div>
+            </label>
+
+            <label class="segmented-option">
+              <input type="radio" name="difficulty" value="Hard">
+              <div class="segmented-content">
+                <span>Hard</span>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <!-- SECTION 4: Number of Questions -->
+        <div class="form-group">
+          <label class="group-label">
+            <span class="step-num">4</span>
+            <span>Number of Questions</span>
+          </label>
+          <div class="segmented-group count-group">
+            <label class="segmented-option count-option">
+              <input type="radio" name="questionCount" value="5">
+              <div class="segmented-content">
+                <span class="count-value">5</span>
+                <span class="count-label">Questions</span>
+              </div>
+            </label>
+
+            <label class="segmented-option count-option">
+              <input type="radio" name="questionCount" value="10" checked>
+              <div class="segmented-content">
+                <span class="count-value">10</span>
+                <span class="count-label">Questions</span>
+              </div>
+            </label>
+
+            <label class="segmented-option count-option">
+              <input type="radio" name="questionCount" value="20">
+              <div class="segmented-content">
+                <span class="count-value">20</span>
+                <span class="count-label">Questions</span>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="form-actions-dual">
+          <button type="submit" id="generateBtn" class="generate-btn">
+            <span class="btn-text">Generate Assessment with Gemini API</span>
+            <div class="btn-loader" hidden>
+              <span class="spinner"></span>
+              <span id="loaderStatusText">Connecting with API...</span>
+            </div>
+          </button>
+
+          <button type="button" id="useLocalDirectBtn" class="btn-local-practice">
+            Load Offline Question Bank (Instant)
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- HIGH DEMAND / FALLBACK MODAL -->
+    <div id="highDemandModal" class="modal-overlay hidden">
+      <div class="modal-card">
+        <div class="modal-badge-row">
+          <span class="modal-badge">Connection Alert</span>
+        </div>
+        <h3 class="modal-title">API Service Throttled or Unavailable</h3>
+        <p class="modal-desc" id="highDemandModalDesc">
+          The Gemini API service is currently throttled, rate-limited, or delayed. Would you like to load the verified offline question set for this topic instead?
+        </p>
+        <div class="modal-topic-preview">
+          <span>Target Topic:</span>
+          <strong id="modalTopicName">Thermodynamics</strong>
+        </div>
+        <div class="modal-btn-group">
+          <button type="button" id="modalAcceptLocalBtn" class="btn-primary modal-action-btn">
+            Load Offline Question Set
+          </button>
+          <button type="button" id="modalRetryAiBtn" class="btn-secondary modal-action-btn">
+            Retry API Call
+          </button>
+          <button type="button" id="modalDismissBtn" class="btn-outline modal-action-btn">
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION B: GENERATED QUIZ DISPLAY CONTAINER -->
+    <section id="quizDisplaySection" class="card quiz-display-card hidden">
+      <!-- Quiz Header -->
+      <div class="quiz-display-header">
+        <div class="quiz-info-left">
+          <div class="quiz-tags">
+            <span id="quizSubjectTag" class="tag tag-subject">Physics</span>
+            <span id="quizDifficultyTag" class="tag tag-difficulty">Medium</span>
+            <span id="quizSourceTag" class="tag tag-source">Gemini API</span>
+          </div>
+          <h2 id="quizChapterTitle" class="quiz-chapter-heading">Thermodynamics</h2>
+        </div>
+        <button type="button" id="newQuizTopBtn" class="btn-outline">Exit Assessment</button>
+      </div>
+
+      <!-- Progress Bar Track -->
+      <div class="progress-container">
+        <div class="progress-bar-track">
+          <div id="quizProgressBar" class="progress-bar-fill" style="width: 0%;"></div>
+        </div>
+        <div class="progress-info">
+          <span id="progressCountText">0 of 10 answered</span>
+          <span id="progressPercentText">0%</span>
+        </div>
+      </div>
+
+      <!-- Questions List Container -->
+      <div id="questionsContainer" class="questions-list">
+        <!-- Rendered dynamically by script.js -->
+      </div>
+
+      <!-- Action Bar -->
+      <div class="quiz-bottom-actions">
+        <button type="button" id="submitQuizBtn" class="generate-btn submit-quiz-btn">
+          <span>Submit and View Results</span>
+        </button>
+      </div>
+
+      <!-- Results Summary Card (Shown after submit) -->
+      <div id="quizResultsCard" class="quiz-results-card hidden">
+        <div class="results-badge" id="resultsBadge">Evaluation Complete</div>
+
+        <!-- Headline and Performance Summary -->
+        <div class="results-header-block">
+          <h2 id="resultTitle" class="result-title">Performance Summary</h2>
+          <p id="resultQuote" class="result-quote">Assessment evaluated. Review your score breakdown and topic review recommendations below.</p>
+        </div>
+
+        <!-- Score Progress Bar -->
+        <div class="score-progress-wrapper">
+          <div class="score-progress-header">
+            <span class="score-progress-label">Score Evaluation</span>
+            <span id="scoreProgressText" class="score-progress-text">0 / 10 Correct (0%)</span>
+          </div>
+          <div class="score-progress-track">
+            <div id="scoreProgressBarFill" class="score-progress-fill" style="width: 0%"></div>
+          </div>
+        </div>
+
+        <!-- Score Breakdown Stats -->
+        <div class="score-stats-grid">
+          <div class="score-stat-box stat-correct">
+            <span class="stat-num" id="statCorrectNum">0</span>
+            <span class="stat-label">Correct</span>
+          </div>
+          <div class="score-stat-box stat-incorrect">
+            <span class="stat-num" id="statIncorrectNum">0</span>
+            <span class="stat-label">Incorrect</span>
+          </div>
+          <div class="score-stat-box stat-accuracy">
+            <span class="stat-num" id="statAccuracyNum">0%</span>
+            <span class="stat-label">Accuracy</span>
+          </div>
+        </div>
+
+        <!-- Dynamic Study Topics and Next Recommendations -->
+        <div id="topicRecommendationsContainer" class="topic-recommendations-container">
+          <!-- Injected via JavaScript -->
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="results-btn-group">
+          <button type="button" id="retakeQuizBtn" class="btn-primary">Retake Assessment</button>
+          <button type="button" id="createAnotherQuizBtn" class="btn-secondary">New Assessment Setup</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Professional Footer -->
+  <footer class="app-footer">
+    <div class="footer-inner">
+      <p class="footer-copy">&copy; 2026 STEM Assessment Platform. Academic evaluation tool.</p>
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms and Conditions</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
